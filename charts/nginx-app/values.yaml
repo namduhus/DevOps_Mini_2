@@ -1,0 +1,20 @@
+replicaCount: 1
+
+image:
+  repository: dockerdu2914/nginx
+  tag: latest
+  pullPolicy: ifNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+
+resources: {}
+
+rollout:
+  canary:
+    steps:
+      - setWeight: 20
+      - pause: { duration: 30s }
+      - setWeight: 50
+      - pause: { duration: 30s }
